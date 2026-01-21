@@ -14,9 +14,7 @@ export async function GET(request: Request) {
     // Clean the handle: remove @ and trim
     const cleanHandle = handle.replace('@', '').trim();
     
-    // Check for both "@handle" and "handle" to be safe, or just one if you're consistent
-    // For now, let's assume the DB might have either or we want to be flexible
-    query = query.or(`twitter_handle.eq.${cleanHandle},twitter_handle.eq.@${cleanHandle}`);
+    query = query.ilike('twitter_handle', cleanHandle);
   } else {
     return NextResponse.json({ error: 'Missing parameter: address or handle' }, { status: 400 });
   }
