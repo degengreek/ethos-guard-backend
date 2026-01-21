@@ -1,5 +1,5 @@
 import { createWalletClient, http, publicActions } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
+import { privateKeyToAccount, PrivateKeyAccount } from 'viem/accounts';
 import { baseSepolia } from 'viem/chains';
 
 const privateKey = process.env.FAUCET_PRIVATE_KEY as `0x${string}`;
@@ -9,9 +9,11 @@ console.log("🔍 [Debug] Private Key exists:", !!privateKey);
 console.log("🔍 [Debug] RPC URL:", rpcUrl);
 
 // Initialize the account from the private key
-let account;
+let account: PrivateKeyAccount | undefined;
 try {
-  account = privateKey ? privateKeyToAccount(privateKey) : undefined;
+  if (privateKey) {
+    account = privateKeyToAccount(privateKey);
+  }
 } catch (error) {
   console.error("❌ Failed to load Faucet Wallet. Check FAUCET_PRIVATE_KEY in .env.local");
   account = undefined;
