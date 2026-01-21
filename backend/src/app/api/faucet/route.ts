@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     try {
         // Send 0.01 ETH
         const hash = await walletClient.sendTransaction({
+            account,
             to: address,
             value: parseEther('0.01'), 
         });

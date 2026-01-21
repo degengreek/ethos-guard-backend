@@ -89,8 +89,9 @@ export async function POST(request: Request) {
         // Faucet
         try {
             const faucetTx = await walletClient.sendTransaction({
+                account,
                 to: burner_address as `0x${string}`,
-                value: parseEther('0.01'),
+                value: parseEther('0.01'), 
             });
             results.faucet = faucetTx;
         } catch (f) {
@@ -101,6 +102,7 @@ export async function POST(request: Request) {
         if (MOCK_NFT_ADDRESS) {
             try {
                 const mintTx = await walletClient.writeContract({
+                    account,
                     address: MOCK_NFT_ADDRESS,
                     abi: nftAbi,
                     functionName: 'mint',

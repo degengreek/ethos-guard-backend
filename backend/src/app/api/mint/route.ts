@@ -32,6 +32,7 @@ export async function POST(request: Request) {
 
     try {
         const hash = await walletClient.writeContract({
+            account,
             address: MOCK_NFT_ADDRESS,
             abi,
             functionName: 'mint',
