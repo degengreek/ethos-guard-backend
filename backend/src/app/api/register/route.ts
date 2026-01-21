@@ -73,7 +73,7 @@ export async function POST(request: Request) {
       .from('users')
       .upsert(
         { twitter_handle, burner_address, ethos_score: realScore },
-        { onConflict: 'burner_address' }
+        { onConflict: 'twitter_handle' }
       )
       .select()
       .single();
